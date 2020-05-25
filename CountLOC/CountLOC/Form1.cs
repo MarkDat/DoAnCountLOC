@@ -86,20 +86,29 @@ namespace CountLOC
                 numLines += getLOC(lines);
                 numBlanks += numEmpty(lines);
 
-                foreach (string s in lines)
+
+            int dong = 0;
+                foreach (string ss in lines)
                 {
+                ++dong;
+                String s = ss.Trim();
+                    //Loai bo truong hop cac dau //,/*.... o trong ""  
+                if ((isEmpty(s)) || s.IndexOf("\"//\"") != -1 || s.IndexOf("\"/*\"") != -1|| s.IndexOf("\"*/\"") != -1) continue;
                    
-                    if (isEmpty(s) || s.IndexOf("\"//\"") != -1 || s.IndexOf("\"/*\"") != -1|| s.IndexOf("\"*/\"") != -1) continue;
+                    //check block comment
                     if (s.IndexOf("/*") != -1) checkCML = true;
                     if (s.IndexOf("*/") != -1) checkCML = false;
 
-                    if ((s.IndexOf("/*") != -1 && !s.StartsWith("/*"))) ++numLOC;
-                    if (s.IndexOf("//") != -1 && !s.StartsWith("//")) ++numLOC;
+                //check tren 1 dong
+                    if ((s.IndexOf("/*") != -1 && !s.StartsWith("/*"))) { ++numLOC; Console.WriteLine(fileName+" Big 1 "+dong); }
+                if (s.IndexOf("//") != -1 && !s.StartsWith("//") && !s.Trim().EndsWith("*/")) { ++numLOC; Console.WriteLine(fileName + " Big 2 "+dong); }
+               
 
-                    if (s.IndexOf("/*") != -1 && s.IndexOf("*/") != -1) ++commentLine;
+                if (s.IndexOf("/*") != -1 && s.IndexOf("*/") != -1) { ++commentLine; Console.WriteLine(fileName + " Commen 1 " + dong); }
 
-                    if (s.IndexOf("//") != -1 || checkCML) ++commentLine;
-                }        
+                if (s.IndexOf("//") != -1 && s.Trim().EndsWith("*/")) continue;
+                    if (s.IndexOf("//") != -1  || checkCML ){ ++commentLine; Console.WriteLine(fileName + " Commen 2 " + dong); }
+            }        
         }
         public  int getLOC(string[] s)
         {
