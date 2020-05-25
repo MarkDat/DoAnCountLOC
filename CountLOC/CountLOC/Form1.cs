@@ -47,17 +47,22 @@ namespace CountLOC
         int numLines = 0;
         int numBlanks = 0;
         int numLOC = 0;
+
+        //Log
+           
+        //
         public void readFiles()
         {
             foreach (string item in filePahts)
             {
                 fileName = item;
+                txtLog.Text+= Path.GetFileName(fileName)+"\r\n";
                 lines = File.ReadAllLines(fileName);
                 process();
             }
-                    
-            
-            numLOC = numLines - numBlanks - commentLine;
+
+            Console.WriteLine("NUMMMMM: " + numLOC);
+            numLOC += numLines - numBlanks - commentLine;
             Console.WriteLine("Files: " + filePahts.Length);
             Console.WriteLine("Lines: " + numLines);
             Console.WriteLine("Blanks: " + numBlanks);
@@ -74,6 +79,7 @@ namespace CountLOC
             numLines = 0;
             numBlanks = 0;
             numLOC = 0;
+           
         }
         public void process()
         {
@@ -82,10 +88,14 @@ namespace CountLOC
 
                 foreach (string s in lines)
                 {
+                   
                     if (isEmpty(s) || s.IndexOf("\"//\"") != -1 || s.IndexOf("\"/*\"") != -1|| s.IndexOf("\"*/\"") != -1) continue;
                     if (s.IndexOf("/*") != -1) checkCML = true;
                     if (s.IndexOf("*/") != -1) checkCML = false;
-                    
+
+                    if ((s.IndexOf("/*") != -1 && !s.StartsWith("/*"))) ++numLOC;
+                    if (s.IndexOf("//") != -1 && !s.StartsWith("//")) ++numLOC;
+
                     if (s.IndexOf("/*") != -1 && s.IndexOf("*/") != -1) ++commentLine;
 
                     if (s.IndexOf("//") != -1 || checkCML) ++commentLine;
@@ -120,7 +130,8 @@ namespace CountLOC
         List<string> lFileTypes = new List<string>();
         private void btnOK_Click(object sender, EventArgs e)
         {
-
+            this.Size = new Size(705, 286);
+            txtLog.Text = "";
             if (cbCS.Checked) lFileTypes.Add("*.cs");
             if (cbJava.Checked) lFileTypes.Add("*.java");
             if (cbTXT.Checked) lFileTypes.Add("*.txt");
@@ -141,6 +152,16 @@ namespace CountLOC
         private void txtPath_TextChanged(object sender, EventArgs e)
         {
      
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

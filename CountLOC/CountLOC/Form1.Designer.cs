@@ -41,17 +41,19 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.x = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.lbFiles = new System.Windows.Forms.Label();
-            this.lbLines = new System.Windows.Forms.Label();
-            this.lbBlanks = new System.Windows.Forms.Label();
-            this.lbCommentLine = new System.Windows.Forms.Label();
             this.lbLOC = new System.Windows.Forms.Label();
+            this.lbCommentLine = new System.Windows.Forms.Label();
+            this.lbBlanks = new System.Windows.Forms.Label();
+            this.lbLines = new System.Windows.Forms.Label();
+            this.lbFiles = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.x = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.label7 = new System.Windows.Forms.Label();
             this.lbFolderName = new System.Windows.Forms.Label();
+            this.txtLog = new System.Windows.Forms.RichTextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -184,26 +186,52 @@
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Result";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // label6
+            // lbLOC
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(44, 74);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(42, 13);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Blanks:";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lbLOC.AutoSize = true;
+            this.lbLOC.Location = new System.Drawing.Point(326, 50);
+            this.lbLOC.Name = "lbLOC";
+            this.lbLOC.Size = new System.Drawing.Size(13, 13);
+            this.lbLOC.TabIndex = 19;
+            this.lbLOC.Text = "0";
             // 
-            // x
+            // lbCommentLine
             // 
-            this.x.AutoSize = true;
-            this.x.Location = new System.Drawing.Point(197, 25);
-            this.x.Name = "x";
-            this.x.Size = new System.Drawing.Size(78, 13);
-            this.x.TabIndex = 13;
-            this.x.Text = "Comment lines:";
-            this.x.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lbCommentLine.AutoSize = true;
+            this.lbCommentLine.Location = new System.Drawing.Point(326, 25);
+            this.lbCommentLine.Name = "lbCommentLine";
+            this.lbCommentLine.Size = new System.Drawing.Size(13, 13);
+            this.lbCommentLine.TabIndex = 18;
+            this.lbCommentLine.Text = "0";
+            // 
+            // lbBlanks
+            // 
+            this.lbBlanks.AutoSize = true;
+            this.lbBlanks.Location = new System.Drawing.Point(98, 74);
+            this.lbBlanks.Name = "lbBlanks";
+            this.lbBlanks.Size = new System.Drawing.Size(13, 13);
+            this.lbBlanks.TabIndex = 17;
+            this.lbBlanks.Text = "0";
+            // 
+            // lbLines
+            // 
+            this.lbLines.AutoSize = true;
+            this.lbLines.Location = new System.Drawing.Point(98, 50);
+            this.lbLines.Name = "lbLines";
+            this.lbLines.Size = new System.Drawing.Size(13, 13);
+            this.lbLines.TabIndex = 16;
+            this.lbLines.Text = "0";
+            // 
+            // lbFiles
+            // 
+            this.lbFiles.AutoSize = true;
+            this.lbFiles.Location = new System.Drawing.Point(98, 25);
+            this.lbFiles.Name = "lbFiles";
+            this.lbFiles.Size = new System.Drawing.Size(13, 13);
+            this.lbFiles.TabIndex = 15;
+            this.lbFiles.Text = "0";
             // 
             // label8
             // 
@@ -215,50 +243,25 @@
             this.label8.Text = "LOC, Line Of Code:";
             this.label8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // lbFiles
+            // x
             // 
-            this.lbFiles.AutoSize = true;
-            this.lbFiles.Location = new System.Drawing.Point(98, 25);
-            this.lbFiles.Name = "lbFiles";
-            this.lbFiles.Size = new System.Drawing.Size(13, 13);
-            this.lbFiles.TabIndex = 15;
-            this.lbFiles.Text = "0";
+            this.x.AutoSize = true;
+            this.x.Location = new System.Drawing.Point(197, 25);
+            this.x.Name = "x";
+            this.x.Size = new System.Drawing.Size(78, 13);
+            this.x.TabIndex = 13;
+            this.x.Text = "Comment lines:";
+            this.x.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // lbLines
+            // label6
             // 
-            this.lbLines.AutoSize = true;
-            this.lbLines.Location = new System.Drawing.Point(98, 50);
-            this.lbLines.Name = "lbLines";
-            this.lbLines.Size = new System.Drawing.Size(13, 13);
-            this.lbLines.TabIndex = 16;
-            this.lbLines.Text = "0";
-            // 
-            // lbBlanks
-            // 
-            this.lbBlanks.AutoSize = true;
-            this.lbBlanks.Location = new System.Drawing.Point(98, 74);
-            this.lbBlanks.Name = "lbBlanks";
-            this.lbBlanks.Size = new System.Drawing.Size(13, 13);
-            this.lbBlanks.TabIndex = 17;
-            this.lbBlanks.Text = "0";
-            // 
-            // lbCommentLine
-            // 
-            this.lbCommentLine.AutoSize = true;
-            this.lbCommentLine.Location = new System.Drawing.Point(326, 25);
-            this.lbCommentLine.Name = "lbCommentLine";
-            this.lbCommentLine.Size = new System.Drawing.Size(13, 13);
-            this.lbCommentLine.TabIndex = 18;
-            this.lbCommentLine.Text = "0";
-            // 
-            // lbLOC
-            // 
-            this.lbLOC.AutoSize = true;
-            this.lbLOC.Location = new System.Drawing.Point(326, 50);
-            this.lbLOC.Name = "lbLOC";
-            this.lbLOC.Size = new System.Drawing.Size(13, 13);
-            this.lbLOC.TabIndex = 19;
-            this.lbLOC.Text = "0";
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(44, 74);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(42, 13);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Blanks:";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label7
             // 
@@ -278,11 +281,31 @@
             this.lbFolderName.TabIndex = 14;
             this.lbFolderName.Text = "?";
             // 
+            // txtLog
+            // 
+            this.txtLog.Location = new System.Drawing.Point(437, 63);
+            this.txtLog.Name = "txtLog";
+            this.txtLog.Size = new System.Drawing.Size(248, 166);
+            this.txtLog.TabIndex = 15;
+            this.txtLog.Text = "";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.ForeColor = System.Drawing.Color.Maroon;
+            this.label9.Location = new System.Drawing.Point(533, 47);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(29, 13);
+            this.label9.TabIndex = 16;
+            this.label9.Text = "LOG";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(456, 241);
+            this.ClientSize = new System.Drawing.Size(436, 247);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.txtLog);
             this.Controls.Add(this.lbFolderName);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.groupBox1);
@@ -297,6 +320,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "CountLoc";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -330,6 +354,8 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lbFolderName;
+        private System.Windows.Forms.RichTextBox txtLog;
+        private System.Windows.Forms.Label label9;
     }
 }
 
