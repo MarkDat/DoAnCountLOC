@@ -25,7 +25,7 @@ namespace CountLOC
         string fileName;
         string filtersFileType;
       // string rootFile= "E:\\WorkSpace\\Test\\NGUYEN_HAI_DUONG_FINAL_EXAM_CMU-CS303_2020S";
-      string rootFile = "E:\\Test\\CountTheLinesCode";
+      string rootFile = "E:\\Test\\CountTheLinesCode\\CountTheLinesCode";
    
         public void findFile()
         { 
@@ -48,26 +48,39 @@ namespace CountLOC
         int numBlanks = 0;
         int numLOC = 0;
 
+
+        int commentLineTB = 0;
+        int numLinesTB = 0;
+        int numBlanksTB = 0;
+        int numLOCTB = 0;
         //Log
-           
+
         //
         public void readFiles()
         {
+            Console.WriteLine("Test:============================================");
             foreach (string item in filePahts)
             {
                 fileName = item;
-                txtLog.Text+= Path.GetFileName(fileName)+"\r\n";
                 lines = File.ReadAllLines(fileName);
                 process();
+
+                numLOCTB += numLinesTB - numBlanksTB - commentLineTB;
+                dataGridView1.Rows.Add(fileName, numLinesTB.ToString(), numBlanksTB.ToString(), commentLineTB.ToString(), numLOCTB.ToString());
+                //Console.WriteLine("Path: "+fileName);
+                // numLOC += numLines - numBlanks - commentLine;
+                //Console.WriteLine("Files: " + filePahts.Length);
+                //Console.WriteLine("Lines: " + numLines);
+                //Console.WriteLine("Blanks: " + numBlanks);
+                //Console.WriteLine("Comments: " + commentLine);
+                //Console.WriteLine("Line Of Code: " + numLOC);
+                commentLineTB = 0;
+                numLinesTB = 0;
+                numBlanksTB = 0;
+                numLOCTB = 0;
             }
 
-            Console.WriteLine("NUMMMMM: " + numLOC);
             numLOC += numLines - numBlanks - commentLine;
-            Console.WriteLine("Files: " + filePahts.Length);
-            Console.WriteLine("Lines: " + numLines);
-            Console.WriteLine("Blanks: " + numBlanks);
-            Console.WriteLine("Comments: " + commentLine);
-            Console.WriteLine("Line Of Code: " + numLOC);
             lbFiles.Text = filePahts.Length.ToString();
             lbLines.Text = numLines.ToString();
             lbBlanks.Text = numBlanks.ToString();
@@ -84,7 +97,9 @@ namespace CountLOC
         public void process()
         {
                 numLines += getLOC(lines);
-                numBlanks += numEmpty(lines);
+                numLinesTB = getLOC(lines);
+            numBlanks += numEmpty(lines);
+            numBlanksTB = numEmpty(lines);
 
 
             int dong = 0;
@@ -99,17 +114,23 @@ namespace CountLOC
                     if (s.IndexOf("/*") != -1) checkCML = true;
                     if (s.IndexOf("*/") != -1) checkCML = false;
 
-                //check tren 1 dong
-                    if ((s.IndexOf("/*") != -1 && !s.StartsWith("/*"))) { ++numLOC; Console.WriteLine(fileName+" Big 1 "+dong); }
-                if (s.IndexOf("//") != -1 && !s.StartsWith("//") && !s.Trim().EndsWith("*/")) { ++numLOC; Console.WriteLine(fileName + " Big 2 "+dong); }
-               
+                    //chek block comment trên 1 dòng
+                 if (s.IndexOf("/*") != -1 && s.IndexOf("*/") != -1) { ++commentLine; ++commentLineTB; Console.WriteLine(fileName + " Commen 1 " + dong); }
 
-                if (s.IndexOf("/*") != -1 && s.IndexOf("*/") != -1) { ++commentLine; Console.WriteLine(fileName + " Commen 1 " + dong); }
 
+                //check tren 1 dong block code
+                if ((s.IndexOf("/*") != -1 && !s.StartsWith("/*"))) { ++numLOC; ++numLOCTB; Console.WriteLine(fileName+" Big 1 "+dong); }
+                if (s.IndexOf("//") != -1 && !s.StartsWith("//") && !s.Trim().EndsWith("*/")) {
+                    ++commentLine; ++commentLineTB; ++numLOC; ++numLOCTB; Console.WriteLine(fileName + " Big 2 "+dong); continue; 
+                }
+              
+
+  
                 if (s.IndexOf("//") != -1 && s.Trim().EndsWith("*/")) continue;
-                    if (s.IndexOf("//") != -1  || checkCML ){ ++commentLine; Console.WriteLine(fileName + " Commen 2 " + dong); }
+                  if (s.IndexOf("//") != -1  || checkCML ){ ++commentLine; ++commentLineTB; Console.WriteLine(fileName + " Commen 2 " + dong); }
             }        
         }
+
         public  int getLOC(string[] s)
         {
             return s.Length;
@@ -139,8 +160,7 @@ namespace CountLOC
         List<string> lFileTypes = new List<string>();
         private void btnOK_Click(object sender, EventArgs e)
         {
-            this.Size = new Size(705, 286);
-            txtLog.Text = "";
+            dataGridView1.Rows.Clear();
             if (cbCS.Checked) lFileTypes.Add("*.cs");
             if (cbJava.Checked) lFileTypes.Add("*.java");
             if (cbTXT.Checked) lFileTypes.Add("*.txt");
@@ -169,6 +189,11 @@ namespace CountLOC
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
